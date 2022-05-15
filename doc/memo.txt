@@ -1,0 +1,25 @@
+*vim-memo.txt* A vim plugin for memo
+
+Author  : Takehiro Tawara
+License : MIT license
+
+==========================================================================
+INTRODUCTION                                       *vim-memo-introduction*
+
+vim-memo is a vim plugin for memo.
+
+==========================================================================
+INSTALL                                                 *vim-memo-install*
+
+For vim-plug, install the plugin as follows.
+>
+        Plug 'tktwr/vim-memo'
+<
+==========================================================================
+COMMAND                                                 *vim-memo-command*
+
+:Memo
+        Open a memo window.
+
+==========================================================================
+vim:tw=78:ft=help:norl:

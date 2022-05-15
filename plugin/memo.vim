@@ -10,14 +10,21 @@ let g:loaded_memo = 1
 
 let s:memo_winname = '\[memo\]'
 let s:memo_bin_dir = expand('<sfile>:p:h:h')."/bin"
+let s:memo_tags_files = []
 
 "------------------------------------------------------
 " private func
 "------------------------------------------------------
 func! s:ListTags()
+  let files = ""
+  for i in s:memo_tags_files
+    let files .= printf("-t=%s ", i)
+  endfor
+
   setlocal modifiable
   silent %d _
-  silent exec printf("0r!%s/memo.sh -c=%d -p", s:memo_bin_dir, winwidth(0))
+  let cmd = printf("0r!%s/memo.sh -c=%d %s -p", s:memo_bin_dir, winwidth(0), files)
+  silent exec cmd
   normal 1G
   setlocal nomodifiable
 endfunc
@@ -59,11 +66,26 @@ endfunc
 " s:Memo()
 "------------------------------------------------------
 func! s:Memo(tagname)
+  call s:MemoSetting()
   call s:MakeMemoWindow()
   call s:ListTags()
   if (!empty(a:tagname))
     call s:OpenTag(a:tagname)
   endif
+endfunc
+
+func! s:MemoSetting()
+  if s:memo_tags_files != []
+    return
+  endif
+
+  if exists("g:memo_tags_files")
+    let s:memo_tags_files = g:memo_tags_files
+  endif
+
+  for i in s:memo_tags_files
+    exec printf("set tags+=%s", i)
+  endfor
 endfunc
 
 "------------------------------------------------------

@@ -8,12 +8,7 @@ if [ $? -eq 0 ]; then
 fi
 
 bin_name=`basename $0`
-tags="\
-  $MY_REMOTE_CONFIG/memo/tags.memo \
-  $MY_REMOTE_CONFIG/samples/tags.memo \
-  $MY_LOCAL_CONFIG/memo/tags.memo \
-  $MY_DIARY/tags.memo \
-  "
+tags_files=""
 
 f_help() {
   echo "NAME"
@@ -33,7 +28,7 @@ f_help() {
 }
 
 f_print_tags() {
-  for i in $tags; do
+  for i in $tags_files; do
     if [ -f $i ]; then
       echo "[$i]"
       awk '{print $1}' $i | grep '^memo_' | sed 's/memo_//' | column -c $cols
@@ -43,7 +38,7 @@ f_print_tags() {
 }
 
 f_fzy_tags() {
-  for i in $tags; do
+  for i in $tags_files; do
     if [ -f $i ]; then
       awk '{print $1}' $i | grep '^memo_'
     fi
@@ -51,7 +46,7 @@ f_fzy_tags() {
 }
 
 f_search_tag() {
-  for i in $tags; do
+  for i in $tags_files; do
     if [ -f $i ]; then
       awk '{print $1}' $i | grep '^memo_' | grep $1
     fi
@@ -80,6 +75,10 @@ f_main() {
       --fzy)
         f_fzy_tags
         exit
+        ;;
+      -t=*)
+        tag=`echo $i | sed 's+^-t=++'`
+        tags_files="$tags_files $tag"
         ;;
       -s=*)
         tag=`echo $i | sed 's+^-s=++'`

@@ -1,0 +1,10 @@
+#------------------------------------------------------
+# path
+#------------------------------------------------------
+vim_memo_plugin_dir() {
+  sfile=$(realpath $BASH_SOURCE)
+  sdir=${sfile%/*}
+  echo ${sdir%/*}
+}
+export VIM_MEMO_DIR=$(vim_memo_plugin_dir)
+export PATH="$VIM_MEMO_DIR/bin:$PATH"

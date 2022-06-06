@@ -18,10 +18,12 @@ f_help() {
   echo "  $bin_name [options] [tag]"
   echo
   echo "OPTIONS"
-  echo "  -h, --help   print help"
-  echo "  -p           print tags"
-  echo "  -s=tag       search tag"
-  echo "  -c=N         set N columns"
+  echo "  -h, --help   ... print help"
+  echo "  -p           ... print tags"
+  echo "  --fzy        ... print tags for fzy"
+  echo "  -s=tag       ... search tag"
+  echo "  -t=tags_file ... add tags file"
+  echo "  -c=N         ... set N columns"
   echo
   echo "TAGS"
   f_print_tags
@@ -76,14 +78,14 @@ f_main() {
         f_fzy_tags
         exit
         ;;
-      -t=*)
-        tag=`echo $i | sed 's+^-t=++'`
-        tags_files="$tags_files $tag"
-        ;;
       -s=*)
         tag=`echo $i | sed 's+^-s=++'`
         f_search_tag $tag
         exit
+        ;;
+      -t=*)
+        tag=`echo $i | sed 's+^-t=++'`
+        tags_files="$tags_files $tag"
         ;;
       -c=*)
         cols=`echo $i | sed 's+^-c=++'`

@@ -167,3 +167,7 @@ augroup ag_memo
   autocmd FileType memo    call s:MemoFileType()
 augroup END
 
+"------------------------------------------------------
+" init
+"------------------------------------------------------
+call s:MemoSetting()

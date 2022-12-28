@@ -97,7 +97,7 @@ command! -nargs=? Memo call s:Memo(<q-args>)
 " autocmd
 "------------------------------------------------------
 func! s:DefineCommands()
-  if (vis#sidebar#VisInSideBar())
+  if (vis#sidebar#inside())
     nnoremap <buffer> l     :call <SID>PreviewTag(expand("<cWORD>"), -2)<CR>
   else
     nnoremap <buffer> <silent> l W

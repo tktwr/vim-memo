@@ -33,7 +33,7 @@ f_print_tags() {
   for i in $tags_files; do
     if [ -f $i ]; then
       echo "[$i]"
-      awk '{print $1}' $i | grep '^memo_' | sed 's/memo_//' | column -c $cols
+      awk '{print $1}' $i | grep '^memo:' | sed 's/memo://' | column -c $cols
       echo
     fi
   done
@@ -42,7 +42,7 @@ f_print_tags() {
 f_fzy_tags() {
   for i in $tags_files; do
     if [ -f $i ]; then
-      awk '{print $1}' $i | grep '^memo_'
+      awk '{print $1}' $i | grep '^memo:'
     fi
   done
 }
@@ -50,7 +50,7 @@ f_fzy_tags() {
 f_search_tag() {
   for i in $tags_files; do
     if [ -f $i ]; then
-      awk '{print $1}' $i | grep '^memo_' | grep $1
+      awk '{print $1}' $i | grep '^memo:' | grep $1
     fi
   done
 }

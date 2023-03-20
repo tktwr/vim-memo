@@ -37,8 +37,8 @@ func! s:OpenTag(tagname, winnr=0)
   let winnr = vis#window#VisFindEditor(a:winnr)
   call vis#window#goto(winnr)
 
-  "exec "below stjump" "memo:".a:tagname
-  exec "tag" "memo:".a:tagname
+  "exec "below stjump" a:tagname
+  exec "tag" a:tagname
   exec "normal z\<CR>"
 endfunc
 

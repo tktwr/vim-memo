@@ -29,11 +29,15 @@ f_help() {
   f_print_tags
 }
 
+f_get_tags() {
+  grep -v '^!' $1 | awk '{print $1}'
+}
+
 f_print_tags() {
   for i in $tags_files; do
     if [ -f $i ]; then
       echo "[$i]"
-      awk '{print $1}' $i | grep '^memo:' | sed 's/memo://' | column -c $cols
+      f_get_tags $i | column -c $cols
       echo
     fi
   done
@@ -42,7 +46,7 @@ f_print_tags() {
 f_fzy_tags() {
   for i in $tags_files; do
     if [ -f $i ]; then
-      awk '{print $1}' $i | grep '^memo:'
+      f_get_tags $i
     fi
   done
 }
@@ -50,7 +54,7 @@ f_fzy_tags() {
 f_search_tag() {
   for i in $tags_files; do
     if [ -f $i ]; then
-      awk '{print $1}' $i | grep '^memo:' | grep $1
+      f_get_tags $i | grep $1
     fi
   done
 }
